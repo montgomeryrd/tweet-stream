@@ -1,14 +1,14 @@
-import './App.css';
 import openSocket from 'socket.io-client';
+import './App.css';
 
 function App() {
-  const ENDPOINT = 'http://localhost:5000';
-  const socket = openSocket(ENDPOINT, { transports : ['websocket'] });
-
   const tweetStream = document.getElementById('tweetStream');
+  const ENDPOINT = 'http://localhost:5000';
+
+  const socket = openSocket(ENDPOINT, { transports : ['websocket'] });
   
   socket.on('connect', () => {
-    console.log('Connected to server...');
+    console.log(`Connected to server on ${ENDPOINT}`);
   });
 
   socket.on('tweet', (tweet) => {
@@ -16,9 +16,9 @@ function App() {
       id: tweet.data.id,
       text: tweet.data.text,
       username: `@${tweet.includes.users[0].username}`
-    }
+    };
 
-    const tweetElement = document.createElement('div')
+    const tweetElement = document.createElement('div');
     tweetElement.className = 'card';
     tweetElement.innerHTML = `
       <div className="card-body">
