@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
 const rulesURL = 'https://api.twitter.com/2/tweets/search/stream/rules';
 const streamURL = 'https://api.twitter.com/2/tweets/search/stream?tweet.fields=public_metrics&expansions=author_id';
 
-const rules = [{ value: 'ETH' }];
+const rules = [{ value: 'ETHEREUM' }];
 
 const getRules = async () => {
 	const response = await needle('get', rulesURL, {
@@ -74,7 +74,6 @@ const streamTweets = (socket) => {
 			socket.emit('tweet', json);
 		} catch (error) {};
 	});
-	return stream;
 };
 
 io.on('connection', async () => {
